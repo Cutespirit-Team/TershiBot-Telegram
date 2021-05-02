@@ -49,10 +49,10 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 **Step 5.**``apachectl``<br>
 
 ### Run 運行
-Clone The Repo:``git clone https://github.com/mmm25002500/TershiBot-Telegram``<br>
-Mkdir Necessary Folder:``mkdir TershiBot-Telegram/yt``<br>
-Change Local Variables Settings:``vim TershiBot-Telegram/bot.py``<br>
-Run as python3:``python3 TershiBot-Telegram/bot.py``<br>
+**Step 1.**``git clone https://github.com/mmm25002500/TershiBot-Telegram``<br>
+**Step 2.**``mkdir TershiBot-Telegram/yt``<br>
+**Step 3.**``vim TershiBot-Telegram/bot.py``<br>
+**Step 4.**``python3 TershiBot-Telegram/bot.py``<br>
 
 ## 心得與建構思路:
 這是我在課餘的時候，寫出來的Telegram機器人，這個機器人是我慢慢翻API寫出來的，以後也會有更多功能。
