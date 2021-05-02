@@ -11,7 +11,6 @@ import os
 import math #數學
 import subprocess
 #夏特稀製作 可修改
-
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'TOKEN:TOKEN'
