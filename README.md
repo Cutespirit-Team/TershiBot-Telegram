@@ -2,20 +2,21 @@
 A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器人
 這是一款使用Python寫的Telegram Bot，這是利用Telepot做成的，目前也正在維護中，也有在定時更新。<br>
 目前功能:<br>
-用法： /指令 [選項...] [參數...]:<br>
-/help 顯示幫助:<br>
-/showmeme 顯示迷因梗圖:<br>
-/member 顯示群組人數:<br>
-/admim 顯示管理員:<br>
-/callme 呼叫夏特稀:<br>
-/sayhello 說哈摟:<br>
-/showweb 顯示官網:<br>
-/count 倒數計時:<br>
-/wearechina 我們是中國:<br>
-/sendmsg 次數 訊息 [選項] 傳送訊息 --help可以查看幫助:<br>
-/calc 數字x 數字y [選項] 計算機 --help可以查看幫助:<br>
-/time 時間:<br>
-/ytdl  YouTube影片下載器:<br>
+
+| 用法： /指令 | [選項...] [參數...] |
+| /help | 顯示幫助 |
+| /showmeme | 顯示迷因梗圖 |
+| /member | 顯示群組人數 |
+| /admim | 顯示管理員 |
+| /callme | 呼叫夏特稀 |
+| /sayhello | 說哈摟 |
+| /showweb | 顯示官網 |
+| /count | 倒數計時 |
+| /wearechina | 我們是中國 |
+| /sendmsg | 次數 訊息 [選項] 傳送訊息 --help可以查看幫助 |
+| /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
+| /time | 時間 |
+| /ytdl | YouTube影片下載器 |
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
