@@ -16,6 +16,8 @@ import subprocess
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'TOKEN:TOKEN'
 bot = telepot.Bot(TOKEN)
+username = 'Username'
+hostname = 'Hostname'
 	#迷因照片總數
 jpg = 249
 png = 12
@@ -28,7 +30,9 @@ TershiUsername = '@TershiXia'
 LeaderUsername = '@ads96532'
 HeaderUsermame = '@twattai'
 	#梗圖存放位置
-memeAddress = 'https://cutespirit.tershi.ml/meme/'
+memeAddress = 'https:/example.com/meme/' #非必要
+ytHttpdAddress = '/srv/http/' #依照你的Linux發行版而決定
+HttpdAddress = 'https://example.com/'
     #參數設定
 capCountDown110text = "2021/05/15 08:30 AM" #110會考日期文字
 capCountDown110 = datetime(2021,5,15,8,30)#110會考日期
@@ -387,16 +391,16 @@ def handle(msg):		#程式精隨
 			nowtime = '現在時間：' + today.strftime("%Y") + '年'+ today.strftime("%m") +'月' +today.strftime("%d") + '日' + today.strftime("%H") + '時' +today.strftime("%M") + '分' + today.strftime("%S") + '秒' 
 			sendM(chat_id,nowtime)
 	elif msg['text'] == '/終端機' or msg['text'] == '/command' or '/command' in msg['text']:
-		text = str(msg['text'])
-		text = text.split()
-		temp = ''
-		for i in range(1,len(text[:])):
-			temp += text[i] + ' '
-		result = os.popen(temp)
-		txt = '╭─tershi@tershi-archlinux ~\n╰─➤' + temp + '\n'
-		output = subprocess.getstatusoutput(temp)
-		txt += output[1]
-		sendM(chat_id,txt)
+		text = str(msg['text']) #將文字放進來 轉成字串
+		text = text.split() #將文字以空格切割
+		temp = '' #設定temp變數
+		for i in range(1,len(text[:])): #/command後面的字
+			temp += text[i] + ' ' #放進來
+		result = os.popen(temp) #將/command後面的指令執行
+		txt = '╭─' + username + '@'+ hostname + ' ~\n╰─➤' + temp + '\n' #zsh樣式 + 指令
+		output = subprocess.getstatusoutput(temp) #執行結果
+		txt += output[1] #[0,輸出指令] 將0排除
+		sendM(chat_id,txt) #將執行結果和zsh樣式傳送
 	elif msg['text'] == '/YT下載' or msg['text'] == '/ytdl' or '/ytdl' in msg['text']:
 		text = str(msg['text']) #將訊息提取至text
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
@@ -443,12 +447,13 @@ def handle(msg):		#程式精隨
 			--help 顯示幫助
 			''')
 		else:
-			cmd = 'youtube-dl ' + temp + ' -o "yt/%(title)s.%(ext)s"'
-			result = os.popen(cmd)
-			output = subprocess.getstatusoutput(cmd)
-			sendM(chat_id,output[1])
-			cmd = "k1=$(find yt/*);mv yt/* /srv/http/yt/DownLoad.$(echo $k1| cut -d'.' -f 2);curl -X POST \"https://api.telegram.org/bot" + TOKEN +  "/sendMessage?chat_id=" + str(chat_id) + "&text=下載連結為：https://cutespirit.tershi.ml/yt/DownLoad.$(echo $k1| cut -d'.' -f 2)\""
-			result = os.popen(cmd)
+			cmd = 'youtube-dl ' + temp + ' -o "yt/%(title)s.%(ext)s"' #將youtube-dl + 指令 + -o 標題.格式 輸出位置 為 yt/
+			result = os.popen(cmd) #將cmd命令執行
+			output = subprocess.getstatusoutput(cmd) #輸出cmd命令
+			sendM(chat_id,output[1]) #傳送命令至Telegram Chat
+			cmd = "k1=$(find yt/*);mv yt/* " + ytHttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2);curl -X POST \"https://api.telegram.org/bot" + TOKEN +  "/sendMessage?chat_id=" + str(chat_id) + "&text=下載連結為：" + HttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2)\""
+			#Bash指令 將yt/所有檔名放入k1，將yt/全部移動至存放地 取名為 DownLoad.副檔名，另外Post Apache2連結至Telegram Chat
+			result = os.popen(cmd) #將cmd指令執行
 
 MessageLoop(bot, handle).run_as_thread()	#訊息做迴圈(哪個機器人 ,哪個方法).使用執行續()
 print("正在監聽本Bot流量!")
