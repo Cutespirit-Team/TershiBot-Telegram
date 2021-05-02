@@ -4,6 +4,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 目前功能:<br>
 
 | 用法： /指令 | [選項...] [參數...] |<br>
+|-----|-----|
 | /help | 顯示幫助 |<br>
 | /showmeme | 顯示迷因梗圖 |<br>
 | /member | 顯示群組人數 |<br>
