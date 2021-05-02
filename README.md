@@ -69,4 +69,4 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 [Tershi Gitbook](https://gitbook.tershi.ml) <br>
 [Tershi Telegram](https://t.me/TershiXia) <br>
 以上關於因為域名為免費域 因此隨時會網域更換！ <br>
-Licence:© Tershi 2020 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
+Licence:© Tershi 2021 All right reversed 此程式除了「關於」頁面不可重製及發布之外，其餘頁面及功能可進行重製發布。
