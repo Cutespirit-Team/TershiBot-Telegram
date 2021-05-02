@@ -21,24 +21,27 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 
 ## Installation 安裝*
 **### Arch-Linux**
-Update And Install PKG:``sudo pacman -Syy python3 python3-pip httpd`` <br>
-Install Module required:``pip3 install telepot``<br>
-Start Apache Service:``sudo systemctl start httpd``<br>
-Create A Necessary Folder:``mkdir /srv/http/yt``<br>
-Change Owner:``sudo chown USER:USER /srv/http/yt``<br>
+**Step 1.** ``sudo pacman -Syy python3 python3-pip httpd`` <br>
+**Step 2.**``pip3 install telepot``<br>
+**Step 3.**``sudo systemctl start httpd``<br>
+**Step 4.**``mkdir /srv/http/yt``<br>
+**Step 5.**``sudo chown USER:USER /srv/http/yt``<br>
+
 **### Debian/Ubuntu(Not Ready)**
-Update And Upgrade:``sudo apt update&&sudo apt upgrade -y``<br>
-Install PKG:``sudo apt install httpd python3 python3-pip``<br>
-Install Module required:``pip3 install telepot``<br>
-Create A Necessary Folder:``sudo mkdir /var/www/html/yt``<br>
-Change Owner:``sudo chown USER:USER /var/www/html/yt``<br>
-Start Apache Service:``sudo service httpd start``<br>
+**Step 1.**``sudo apt update&&sudo apt upgrade -y``<br>
+**Step 2.**``sudo apt install httpd python3 python3-pip``<br>
+**Step 3.**``pip3 install telepot``<br>
+**Step 4.**``sudo mkdir /var/www/html/yt``<br>
+**Step 5.**``sudo chown USER:USER /var/www/html/yt``<br>
+**Step 6.**``sudo service httpd start``<br>
+
 **### Termux(For Android)(Not Ready)**
-Update And Upgrade:``pkg update&&pkg upgrade``<br>
-Install PKG:``pkg install httpd python3 python3-pip``<br>
-Install Module required:``pip3 install telepot``<br>
-Create A Necessary Folder:``mkdir /var/www/html/yt``<br>
-Start Apache Service:``apachectl``<br>
+**Step 1.**``pkg update&&pkg upgrade``<br>
+**Step 2.**``pkg install httpd python3 python3-pip``<br>
+**Step 3.**``pip3 install telepot``<br>
+**Step 4.**``mkdir /var/www/html/yt``<br>
+**Step 5.**``apachectl``<br>
+
 ### Run 運行
 Clone The Repo:``git clone https://github.com/mmm25002500/TershiBot-Telegram``<br>
 Mkdir Necessary Folder:``mkdir TershiBot-Telegram/yt``<br>
