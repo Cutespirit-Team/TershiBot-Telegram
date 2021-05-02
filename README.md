@@ -22,6 +22,10 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
 ## Installation 安裝<br>
+### **Quick install**
+``chmod +x install.sh``
+``./install.sh``
+
 ### **Arch-Linux**<br>
 **Step 1.** ``sudo pacman -Syy python3 python3-pip httpd`` <br>
 **Step 2.**``pip3 install telepot``<br>
