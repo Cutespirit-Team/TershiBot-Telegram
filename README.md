@@ -2,29 +2,29 @@
 A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器人
 ## Installation 安裝
 ### Arch-Linux
-Update And Install PKG:``sudo pacman -Syy python3 python3-pip httpd``
-Install Module required:``pip3 install telepot``
-Start Apache Service:``sudo systemctl start httpd``
-Create A Necessary Folder:``mkdir /srv/http/yt``
-Change Owner:``sudo chown USER:USER /srv/http/yt``
+Update And Install PKG:``sudo pacman -Syy python3 python3-pip httpd`` <br>
+Install Module required:``pip3 install telepot``<br>
+Start Apache Service:``sudo systemctl start httpd``<br>
+Create A Necessary Folder:``mkdir /srv/http/yt``<br>
+Change Owner:``sudo chown USER:USER /srv/http/yt``<br>
 ### Debian/Ubuntu(Not Ready)
-Update And Upgrade:``sudo apt update&&sudo apt upgrade -y``
-Install PKG:``sudo apt install httpd python3 python3-pip``
-Install Module required:``pip3 install telepot``
-Create A Necessary Folder:``sudo mkdir /var/www/html/yt``
-Change Owner:``sudo chown USER:USER /var/www/html/yt``
-Start Apache Service:``sudo service httpd start``
+Update And Upgrade:``sudo apt update&&sudo apt upgrade -y``<br>
+Install PKG:``sudo apt install httpd python3 python3-pip``<br>
+Install Module required:``pip3 install telepot``<br>
+Create A Necessary Folder:``sudo mkdir /var/www/html/yt``<br>
+Change Owner:``sudo chown USER:USER /var/www/html/yt``<br>
+Start Apache Service:``sudo service httpd start``<br>
 ### Termux(For Android)(Not Ready)
-Update And Upgrade:``pkg update&&pkg upgrade``
-Install PKG:``pkg install httpd python3 python3-pip``
-Install Module required:``pip3 install telepot``
-Create A Necessary Folder:``mkdir /var/www/html/yt``
-Start Apache Service:``apachectl``
+Update And Upgrade:``pkg update&&pkg upgrade``<br>
+Install PKG:``pkg install httpd python3 python3-pip``<br>
+Install Module required:``pip3 install telepot``<br>
+Create A Necessary Folder:``mkdir /var/www/html/yt``<br>
+Start Apache Service:``apachectl``<br>
 ### Run 運行
-Clone The Repo:``git clone https://github.com/mmm25002500/TershiBot-Telegram``
-Mkdir Necessary Folder:``mkdir TershiBot-Telegram/yt``
-Change Local Variables Settings:``vim TershiBot-Telegram/bot.py``
-Run as python3:``python3 TershiBot-Telegram/bot.py``
+Clone The Repo:``git clone https://github.com/mmm25002500/TershiBot-Telegram``<br>
+Mkdir Necessary Folder:``mkdir TershiBot-Telegram/yt``<br>
+Change Local Variables Settings:``vim TershiBot-Telegram/bot.py``<br>
+Run as python3:``python3 TershiBot-Telegram/bot.py``<br>
 
 ## 關於我們 About Us
 
