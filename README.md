@@ -33,7 +33,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 **Step 4.**``mkdir /srv/http/yt``<br>
 **Step 5.**``sudo chown USER:USER /srv/http/yt``<br>
 
-### **Debian/Ubuntu(Not Ready)**<br>
+### **Debian/Ubuntu**<br>
 **Step 1.**``sudo apt update&&sudo apt upgrade -y``<br>
 **Step 2.**``sudo apt install httpd python3 python3-pip``<br>
 **Step 3.**``pip3 install telepot``<br>
@@ -41,7 +41,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 **Step 5.**``sudo chown USER:USER /var/www/html/yt``<br>
 **Step 6.**``sudo service httpd start``<br>
 
-### **Termux(For Android)(Not Ready)**<br>
+### **Termux(For Android)**<br>
 **Step 1.**``pkg update&&pkg upgrade``<br>
 **Step 2.**``pkg install httpd python3 python3-pip``<br>
 **Step 3.**``pip3 install telepot``<br>
