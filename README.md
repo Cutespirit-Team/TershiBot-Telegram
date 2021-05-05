@@ -18,6 +18,8 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 | /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
 | /time | 時間 |
 | /ytdl | YouTube影片下載器 |
+| /updateInfo | 查看更新內容 |
+| /version | 顯示版本|
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
