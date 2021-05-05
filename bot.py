@@ -10,7 +10,7 @@ from datetime import date #時間
 import os
 import math #數學
 import subprocess
-#夏特稀製作 可修改 
+#夏特稀製作 可修改
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
@@ -45,7 +45,6 @@ ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
 YahooStop = datetime(2021,5,4) #Yahoo停止日
-#------------程式開始---------------
 
 #------------程式開始---------------
 
@@ -72,6 +71,7 @@ def getExamCountText():
 	text  = '中華帝國年行事曆\n\n'
 	text += '=====110年=====\n'
 	text += str(capCountDown110text) + '會考倒數：' + str(getCount(capCountDown110)) + '\n'
+	text += str(TershiBirthday17text) + '夏特稀皇帝17歲誕辰倒數' + str(getCount(TershiBirthday17)) + '\n'
 	text += str(YahooStoptext) + 'Yahoo停止日倒數' + str(getCount(YahooStop)) + '\n'
 	text += '=====111年=====\n'
 	text += str(tcteCountDown111text) + '學測倒數：' + str(getCount(tcteCountDown111)) + '\n'
@@ -101,6 +101,8 @@ def handle(msg):		#程式精隨
 /calc 數字x 數字y [選項] 計算機 --help可以查看幫助
 /time 時間
 /ytdl  YouTube影片下載器
+/updateInfo 查看更新內容
+/version 顯示版本
 		'''
 		#三個單引號或雙引號可以多行當字串
 		sendM(chat_id , text) #調用傳送訊息的方法 將聊天室的(id傳出去,文字傳出去)
@@ -182,7 +184,7 @@ def handle(msg):		#程式精隨
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #將有出現數字的 放入numbers裡面
 		text = text.split() #將text 依照空格切割
 		if numbers == []: #如果numbers為空
-			if '--help' in text: #如果--help在text串列裡面
+			if '--help' in text or ' —help' in text: #如果--help在text串列裡面
 				sendM(chat_id,'''
 				用法： /sendmsg 次數 訊息 [選項]
 				選項：
@@ -196,7 +198,7 @@ def handle(msg):		#程式精隨
 			text.remove(str(numbers[0])) #text串列刪除數字
 			temp = text[:] #將text放入temp
 			tempS = 0
-			if '--sleep' in text:
+			if '--sleep' in text or '—sleep' in text:
 					tempS = 1
 					if numbers[-1] >10:
 						sendM(chat_id,'輸入的時間太長了喔 介於0~10之間')
@@ -204,8 +206,11 @@ def handle(msg):		#程式精隨
 					elif  numbers[-1] <0:
 						sendM(chat_id,'輸入的時間太短了喔 介於0~10之間')
 						tempS = 0
-			if '--count' in text: #如果--count在text裡面
-				temp.remove('--count') #temp刪掉--help
+			if '--count' in text or '—count' in text: #如果--count在text裡面
+				if '--count' in text:
+					temp.remove('--count') #temp刪掉--help
+				elif '—count' in text:
+					temp.remove('—count') #temp刪掉—help
 				try:
 					for i in range(0,numbers[0]):
 						if tempS == 1:
@@ -225,47 +230,34 @@ def handle(msg):		#程式精隨
 		text = str(msg['text']) #將訊息提取至text
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
 		text = text.split() #進行空格切割
-		if '--plus' in text:
-			result = numbers[0] + numbers[1]
-			print(result)
-			sendM(chat_id,str(result))
-		elif '--minus' in text:
-			result = numbers[0] - numbers[1]
-			sendM(chat_id,str(result))
-		elif '--times' in text:
-			result = numbers[0] * numbers[1]
-			sendM(chat_id,str(result))
-		elif '--divided' in text:
-			result = numbers[0] / numbers[1]
-			sendM(chat_id,str(result))
-		elif '--root' in text:
+		if '--root' in text or '—root' in text:
 			result = math.sqrt(numbers[0])
 			sendM(chat_id,result)
-		elif '--fact' in text:
+		elif '--fact' in text or '—fact' in text:
 			result = math.factorial(numbers[0])
 			sendM(chat_id,result)
-		elif '--fabs' in text:
+		elif '--fabs' in text or '—fabs' in text:
 			result = math.fabs(numbers[0])
 			sendM(chat_id,result)
-		elif '--pow' in text:
+		elif '--pow' in text or '—pow' in text:
 			result = math.pow(numbers[0], numbers[1])
 			sendM(chat_id,result)
-		elif '--cos' in text:
+		elif '--cos' in text or '—cos' in text:
 			result = math.cos(numbers[0])
 			sendM(chat_id,result)
-		elif '--sin' in text:
+		elif '--sin' in text or '—sin' in text:
 			result = math.sin(numbers[0])
 			sendM(chat_id,result)
-		elif '--tan' in text:
+		elif '--tan' in text or '—tan' in text:
 			result = math.tan(numbers[0])
 			sendM(chat_id,result)
-		elif '--degrees' in text:
+		elif '--degrees' in text or '—degrees' in text:
 			result = math.degrees(numbers[0])
 			sendM(chat_id,result)
-		elif '--radians' in text:
+		elif '--radians' in text or '—radians' in text:
 			result = math.radians(numbers[0])
 			sendM(chat_id,result)
-		elif '--linearEqSo' in text:
+		elif '--linearEqSo' in text or '—linearEqSo' in text:
 			a = numbers[0]
 			b = numbers[1]
 			c = numbers[2]
@@ -281,14 +273,14 @@ def handle(msg):		#程式精隨
 			elif b**2 - 4*a*c <0:
 				result = '無實數根之解/無根'
 			sendM(chat_id,result)
-		elif '--bmi' in text:
+		elif '--bmi' in text or '—bmi' in text:
 			try:
 				w = numbers[0] #可能出錯 如果沒有數字的話
 				h = numbers[1]
 				bmi = w / (h/100)**2
 			except IndexError: #沒有數字會出現Index Out Of Range
 				sendM(chat_id,'可能有哪裡出錯了喔:Index Out Of Range')
-			if '--check' in text:
+			if '--check' in text or '—check' in text:
 				if bmi >= 35:
 					Ctext = '過重'
 				elif bmi >= 30:
@@ -302,7 +294,7 @@ def handle(msg):		#程式精隨
 				elif bmi <18.5:
 					Ctext = '體重過輕'
 				sendM(chat_id,Ctext + ' BMI=' + str(bmi))
-			elif '--help' in text:
+			elif '--help' in text or '—help' in text:
 				sendM(chat_id,'''
 				用法： /calc [參數] [選項]
 				選項：
@@ -311,13 +303,30 @@ def handle(msg):		#程式精隨
 				''')
 			else:
 				sendM(chat_id,bmi)
-		elif '--help' in text:
+		elif '+' in text:
+			result = numbers[0] + numbers[1]
+			print(result)
+			sendM(chat_id,str(result))
+		elif '-' in text:
+			result = numbers[0] - numbers[1]
+			sendM(chat_id,str(result))
+		elif '*' in text:
+			result = numbers[0] * numbers[1]
+			sendM(chat_id,str(result))
+		elif '/' in text:
+			if numbers[1] == 0:
+				sendM(chat_id,'第二個參數請勿放0')
+			else:
+				result = numbers[0] / numbers[1]
+				sendM(chat_id,str(result))
+		elif '--help' in text or '—help' in text:
 			text = '''
 			用法： /calc [參數] [選項]
 			選項：
-			--plus 數字x 數字y | 加
-			--times 數字x 數字y | 乘 
-			--divided 數字x 數字y | 除
+			+ 數字x 數字y | 加
+			- 數字x 數字y | 減
+			* 數字x 數字y | 乘 
+			/ 數字x 數字y | 除
 			--root 數字x | 返回 x 的平方根。
 			--fact 數字x | 以一個整數返回 x 的階乘。
 			--fabs 數字x | 返回 x 的絕對值
@@ -337,25 +346,25 @@ def handle(msg):		#程式精隨
 		text = str(msg['text']) #將輸入的指令放入text
 		nowtime = '現在時間：'
 		counter= 0 #計數器為0
-		if '--year' in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--year' in text or '—year' in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%Y") + '年'
 			counter=1
-		if '--month'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--month'in text or '—month'in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%m") + '月'
 			counter=1
-		if '--date'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--date'in text or '—date'in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%d") + '日'
 			counter=1
-		if '--hour'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--hour'in text or '—hour'in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%H") + '時'
 			counter=1
-		if '--minute'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--minute'in text or '—minute'in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%M") + '分'
 			counter=1
-		if '--second'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--second'in text or '—second'in text: #依照指令需要進行累加，並且計數器設定為1
 			nowtime += today.strftime("%S") + '秒'
 			counter=1
-		if '--week'in text: #依照指令需要進行累加，並且計數器設定為1
+		if '--week'in text or '—week'in text: #依照指令需要進行累加，並且計數器設定為1
 			if today.strftime("%A") == 'Monday':
 				nowtime += '星期一'
 			elif today.strftime("%A") == 'Tuesday':
@@ -371,7 +380,7 @@ def handle(msg):		#程式精隨
 			elif today.strftime("%A") == 'Sunday':
 				nowtime += '星期日'
 			counter=1
-		if '--help' in text: #如果有輸入--help
+		if '--help' in text or '—help' in text: #如果有輸入--help
 			text = '''
 			用法： /week [選項]
 			選項：
@@ -390,7 +399,7 @@ def handle(msg):		#程式精隨
 		else: #如果只有/time
 			nowtime = '現在時間：' + today.strftime("%Y") + '年'+ today.strftime("%m") +'月' +today.strftime("%d") + '日' + today.strftime("%H") + '時' +today.strftime("%M") + '分' + today.strftime("%S") + '秒' 
 			sendM(chat_id,nowtime)
-	elif msg['text'] == '/終端機' or msg['text'] == '/command' or '/command' in msg['text']:
+	elif msg['text'] == '/command' or '/command' in msg['text']:
 		text = str(msg['text']) #將文字放進來 轉成字串
 		text = text.split() #將文字以空格切割
 		temp = '' #設定temp變數
@@ -409,7 +418,7 @@ def handle(msg):		#程式精隨
 		cmd = ''
 		for i in range(1,len(text[:])):
 			temp += text[i] + ' '
-		if '--help' in msg['text']:
+		if '--help' in msg['text'] or '—help' in msg['text']:
 			sendM(chat_id,'''
 			用法： /ytdl [參數] [選項] [...]
 			選項：
@@ -454,7 +463,24 @@ def handle(msg):		#程式精隨
 			cmd = "k1=$(find yt/*);mv yt/* " + ytHttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2);curl -X POST \"https://api.telegram.org/bot" + TOKEN +  "/sendMessage?chat_id=" + str(chat_id) + "&text=下載連結為：" + HttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2)\""
 			#Bash指令 將yt/所有檔名放入k1，將yt/全部移動至存放地 取名為 DownLoad.副檔名，另外Post Apache2連結至Telegram Chat
 			result = os.popen(cmd) #將cmd指令執行
-
+	elif msg['text'] == '/更新內容' or msg['text'] == '/updateInfo' or '/updateInfo' in msg['text']:
+		sendM(chat_id,'''
+		更新日期   - 版本 - 更新內容
+		2020/08/15 - v0.1 - 初始版本
+		2020/08/16 - v0.2 - 增加「說你好」
+		2020/08/17 - v0.3 - 增加「/help」,「增加顯示迷因」
+		2020/09/01 - v0.4 - 增加「顯示群組人數」
+		2020/12/18 - v0.4 - 增加「顯示管理員」,「呼叫夏特稀」,「顯示官網」
+		2021/01/07 - v1.0 - 修改程式為function導向
+		2021/04/29 - v1.1 - 新增「倒數計時」
+		2021/04/30 - v1.1.1 - 修復迷因無法顯示Bug
+		2021/05/01 - v1.2 - 新增「訊息累傳」
+		2021/05/02 - v1.3 - 新增「計算機」,「指令功能」
+		2021/05/03 - v1.4 - 新增「時間功能」,「ytdl YouTube影片下載」
+		2021/05/04 - v1.4.1 - 修復計算機1/0程式當機情形,修復「--」變為「—」無法使用指令的bug
+		''')
+	elif msg['text'] == '/更新內容' or msg['text'] == '/version' or '/version' in msg['text']:
+		sendM(chat_id,'目前版本：1.4.1')
 MessageLoop(bot, handle).run_as_thread()	#訊息做迴圈(哪個機器人 ,哪個方法).使用執行續()
 print("正在監聽本Bot流量!")
 
