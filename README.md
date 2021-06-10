@@ -25,7 +25,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 
 ## Installation 安裝<br>
 ### **Quick install**
-``chmod +x install.sh``
+``chmod +x install.sh``<br>
 ``./install.sh``
 
 ### **Arch-Linux**<br>
