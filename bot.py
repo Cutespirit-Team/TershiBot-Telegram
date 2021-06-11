@@ -1,3 +1,4 @@
+# Tershi Made
 import telepot	#匯入Telepot
 import time	#可以處理時間
 import random	#可以處理亂數
@@ -12,7 +13,7 @@ import math #數學
 import subprocess
 #夏特稀製作 可修改
 
-#設定檔: 
+#設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'TOKEN:TOKEN'
 bot = telepot.Bot(TOKEN)
@@ -69,14 +70,16 @@ def getCount(deadline): #把deadline(過期 就是到期) 放進來
 
 def getExamCountText():
 	text  = '中華帝國年行事曆\n\n'
-	text += '=====110年=====\n'
-	text += str(capCountDown110text) + '會考倒數：' + str(getCount(capCountDown110)) + '\n'
-	text += str(TershiBirthday17text) + '夏特稀皇帝17歲誕辰倒數' + str(getCount(TershiBirthday17)) + '\n'
-	text += str(YahooStoptext) + 'Yahoo停止日倒數' + str(getCount(YahooStop)) + '\n'
 	text += '=====111年=====\n'
+	text += str(TershiBirthday18text) + '夏特稀皇帝18歲誕辰倒數' + str(getCount(TershiBirthday18)) + '\n'
+	text += str(capCountDown111text) + '會考倒數：' + str(getCount(capCountDown111)) + '\n'
 	text += str(tcteCountDown111text) + '學測倒數：' + str(getCount(tcteCountDown111)) + '\n'
 	text += str(ceecCountDown111text) + '統測倒數：' + str(getCount(ceecCountDown111)) + '\n'
-	text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！'
+	text += str(zhiCountDown111text) + '指考倒數：' + str(getCount(zhiCountDown111)) + '\n'
+	text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
+	text += '111會考生: @ , @ , @ \n'
+	text += '111學測升: @ \n'
+	text += "111統測生: @ , \n"
 	return text
 
 def handle(msg):		#程式精隨
@@ -101,7 +104,8 @@ def handle(msg):		#程式精隨
 /calc 數字x 數字y [選項] 計算機 --help可以查看幫助
 /time 時間
 /ytdl  YouTube影片下載器
-/updateInfo 查看更新內容
+/pacman Arch-pacman工具
+/updateinfo 查看更新內容
 /version 顯示版本
 		'''
 		#三個單引號或雙引號可以多行當字串
@@ -128,14 +132,15 @@ def handle(msg):		#程式精隨
 		sendM(chat_id, '哈摟,' + from_username)
 	elif msg['text'] == '顯示網站' or '/showweb' in msg['text']:
 		text = '''
-1. 靈萌官網 - https://cutespirit.tershi.ml
-2. 夏特稀雲端硬碟 - https://mail.tershi.ml/tershicloud
-3. 夏特稀郵件 - https://mail.tershi.ml
-4. 愛神閃靈團隊官網 - https://www.tershi.ml
+1. 靈萌官網 - https://cutespirit.tershi.cf
+2. 夏特稀雲端硬碟 - https://mail.tershi.cf/tershicloud
+3. 夏特稀郵件 - https://mail.tershi.cf
+4. 愛神閃靈團隊官網 - https://www.tershi.cf
 5. 夏特稀YT - https://www.youtube.com/夏特稀
+6. Bot Source Code: https://github.com/mmm25002500/TershiBot-Telegram
 夏特稀TG - t.me/TershiXia
 本Bot - t.me/@TershiCloudBot
-隱私權政策 - https://mail.tershi.ml/policy
+隱私權政策 - https://mail.tershi.cf/policy
 本Bot 是夏特稀製作
 			'''
 		sendM(chat_id,text)
@@ -399,17 +404,17 @@ def handle(msg):		#程式精隨
 		else: #如果只有/time
 			nowtime = '現在時間：' + today.strftime("%Y") + '年'+ today.strftime("%m") +'月' +today.strftime("%d") + '日' + today.strftime("%H") + '時' +today.strftime("%M") + '分' + today.strftime("%S") + '秒' 
 			sendM(chat_id,nowtime)
-	elif msg['text'] == '/command' or '/command' in msg['text']:
-		text = str(msg['text']) #將文字放進來 轉成字串
-		text = text.split() #將文字以空格切割
-		temp = '' #設定temp變數
-		for i in range(1,len(text[:])): #/command後面的字
-			temp += text[i] + ' ' #放進來
-		result = os.popen(temp) #將/command後面的指令執行
-		txt = '╭─' + username + '@'+ hostname + ' ~\n╰─➤' + temp + '\n' #zsh樣式 + 指令
-		output = subprocess.getstatusoutput(temp) #執行結果
-		txt += output[1] #[0,輸出指令] 將0排除
-		sendM(chat_id,txt) #將執行結果和zsh樣式傳送
+	# elif msg['text'] == '/cmd' or '/cmd' in msg['text']:
+	# 	text = str(msg['text']) #將文字放進來 轉成字串
+	# 	text = text.split() #將文字以空格切割
+	# 	temp = '' #設定temp變數
+	# 	for i in range(1,len(text[:])): #/command後面的字
+	# 		temp += text[i] + ' ' #放進來
+	# 	result = os.popen(temp) #將/command後面的指令執行
+	# 	txt = '╭─' + username + '@'+ hostname + ' ~\n╰─➤' + temp + '\n' #zsh樣式 + 指令
+	# 	output = subprocess.getstatusoutput(temp) #執行結果
+	# 	txt += output[1] #[0,輸出指令] 將0排除
+	# 	sendM(chat_id,txt) #將執行結果和zsh樣式傳送
 	elif msg['text'] == '/YT下載' or msg['text'] == '/ytdl' or '/ytdl' in msg['text']:
 		text = str(msg['text']) #將訊息提取至text
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
@@ -463,7 +468,7 @@ def handle(msg):		#程式精隨
 			cmd = "k1=$(find yt/*);mv yt/* " + ytHttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2);curl -X POST \"https://api.telegram.org/bot" + TOKEN +  "/sendMessage?chat_id=" + str(chat_id) + "&text=下載連結為：" + HttpdAddress + "yt/DownLoad.$(echo $k1| cut -d'.' -f 2)\""
 			#Bash指令 將yt/所有檔名放入k1，將yt/全部移動至存放地 取名為 DownLoad.副檔名，另外Post Apache2連結至Telegram Chat
 			result = os.popen(cmd) #將cmd指令執行
-	elif msg['text'] == '/更新內容' or msg['text'] == '/updateInfo' or '/updateInfo' in msg['text']:
+	elif msg['text'] == '/更新內容' or msg['text'] == '/updateinfo' or '/updateinfo' in msg['text']:
 		sendM(chat_id,'''
 		更新日期   - 版本 - 更新內容
 		2020/08/15 - v0.1 - 初始版本
@@ -478,9 +483,52 @@ def handle(msg):		#程式精隨
 		2021/05/02 - v1.3 - 新增「計算機」,「指令功能」
 		2021/05/03 - v1.4 - 新增「時間功能」,「ytdl YouTube影片下載」
 		2021/05/04 - v1.4.1 - 修復計算機1/0程式當機情形,修復「--」變為「—」無法使用指令的bug
-		''')
+        2021/05/18 - v1.4.2 - 修復sendmsg不能以--help查看命令
+		2021/06/11 - v1.5 - 新增pacman指令
+		2021/06/11 - v1.5.1 - 修復pacman 顯示問題，修復pacman -Qi問題
+        ''')
 	elif msg['text'] == '/更新內容' or msg['text'] == '/version' or '/version' in msg['text']:
 		sendM(chat_id,'目前版本：1.4.1')
+	elif msg['text'] == '/pacman'  or '/pacman' in msg['text']:
+		text = str(msg['text']) #將文字放進來 轉成字串
+		text = text.split() #將文字以空格切割
+		if '--help' in text or '—help' in text or '-h' in text:
+			sendM(chat_id,'''
+			pacman -h 用法:  pacman <操作> [...]
+		操作：
+			-h 幫助
+			-V 版本
+			-F 檔案 [選項] [檔案]
+			-Ss搜尋 [選項] [檔案]
+			-Q 佇列 [選項] [軟體包]
+			-Qi資訊	[選項] <檔案>
+
+使用 'pacman {-h --help}' 及某個操作以查看可用選項
+			''')
+		elif '-S' not in text or '--sync' not in text or '-Syy' not in text or '-Sy' not in text or '-U' not in text or '--upgrade' not in text or '--upgrade' not in text:
+			temp = 'pacman ' #設定temp變數
+			for i in range(1,len(text[:])): #/command後面的字
+				temp += text[i] + ' ' #放進來
+			result = os.popen(temp) #將/command後面的指令執行
+			txt = temp
+			output = subprocess.getstatusoutput(temp) #執行結果
+			txt += output[1] #[0,輸出指令] 將0排除
+			sendM(chat_id,txt) #將執行結果和zsh樣式傳送
+
+print('''
+ _____             _     _   __  __           _ 
+|_   _|__ _ __ ___| |__ (_) |  \/  | __ _  __| | ___ 
+  | |/ _ \\ '__/ __| '_ \\| | | |\\/| |/ _` |/ _` |/ _ \\
+  | |  __/ |  \__ \ | | | | | |  | | (_| | (_| |  __/
+  |_|\___|_|  |___/_| |_|_| |_|  |_|\__,_|\__,_|\___|
+ _____ ____         ____ _____             _     ___  ___       
+|_   _/ ___|  _    / __ \_   _|__ _ __ ___| |__ (_) \/ (_) __ _ 
+  | || |  _  (_)  / / _` || |/ _ \ '__/ __| '_ \| |\  /| |/ _` |
+  | || |_| |  _  | | (_| || |  __/ |  \__ \ | | | |/  \| | (_| |
+  |_| \____| (_)  \ \__,_||_|\___|_|  |___/_| |_|_/_/\_\_|\__,_|
+                   \____/                                       	
+If there is errors or issues, you can pm @TershiXia or @ads96532.
+''')
 MessageLoop(bot, handle).run_as_thread()	#訊息做迴圈(哪個機器人 ,哪個方法).使用執行續()
 print("正在監聽本Bot流量!")
 
