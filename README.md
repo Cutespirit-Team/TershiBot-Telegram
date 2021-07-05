@@ -58,7 +58,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 **Step 4.**``python3 TershiBot-Telegram/bot.py``<br>
 
 ## 心得與建構思路:
-這是我在課餘的時候，寫出來的Telegram機器人，這個機器人是我慢慢翻API寫出來的，以後也會有更多功能。
+這是我在課餘的時候，寫出來的Telegram機器人，這個機器人是我慢慢翻Telepot Document寫出來的，以後也會有更多功能。
 在這個程式中我學到物件導向的應用，也學習到「監聽」語法。
 
 ## 關於我們 About Us
