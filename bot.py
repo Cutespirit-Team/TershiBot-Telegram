@@ -35,14 +35,20 @@ memeAddress = 'https:/example.com/meme/' #非必要
 ytHttpdAddress = '/srv/http/' #依照你的Linux發行版而決定
 HttpdAddress = 'https://example.com/'
     #參數設定
-capCountDown110text = "2021/05/15 08:30 AM" #110會考日期文字
-capCountDown110 = datetime(2021,5,15,8,30)#110會考日期
+capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
+capCountDown111 = datetime(2022,6,4,8,30)#111會考日期
 
 tcteCountDown111text = "2022/05/07 10:15 AM" #111統測日期文字
 tcteCountDown111 = datetime(2022,5,7,10,15) #111統測日期
 
 ceecCountDown111text = "2022/05/15 09:20 AM" #111學測日期文字
 ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
+
+zhiCountDown111text = "2021/07/12 09:20 AM" #110指考日期文字
+zhiCountDown111 = datetime(2021,7,12,9,20) #110指考日期
+
+Windows11text = "2021/06/24 11:07 PM" #Windows11文字
+Windows11 = datetime(2021,6,24,23,7) #Windows11
 
 YahooStoptext = "2021/05/04" #Yahoo停止日文字
 YahooStop = datetime(2021,5,4) #Yahoo停止日
@@ -72,14 +78,15 @@ def getExamCountText():
 	text  = '中華帝國年行事曆\n\n'
 	text += '=====111年=====\n'
 	text += str(TershiBirthday18text) + '夏特稀皇帝18歲誕辰倒數' + str(getCount(TershiBirthday18)) + '\n'
+	text += str(Windows11text) + 'Windows 11 發布會' + str(getCount(Windows11)) + '\n'
 	text += str(capCountDown111text) + '會考倒數：' + str(getCount(capCountDown111)) + '\n'
 	text += str(tcteCountDown111text) + '學測倒數：' + str(getCount(tcteCountDown111)) + '\n'
 	text += str(ceecCountDown111text) + '統測倒數：' + str(getCount(ceecCountDown111)) + '\n'
 	text += str(zhiCountDown111text) + '指考倒數：' + str(getCount(zhiCountDown111)) + '\n'
 	text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
-	text += '111會考生: @ , @ , @ \n'
+	text += '111會考生: @tljs2006a , @wujackkmp0728 , @ads96532 , @ttmins , @Shawn5_37 \n'
 	text += '111學測升: @ \n'
-	text += "111統測生: @ , \n"
+	text += "111統測生: @TershiXia , @林小妤 \n"
 	return text
 
 def handle(msg):		#程式精隨
@@ -105,6 +112,8 @@ def handle(msg):		#程式精隨
 /time 時間
 /ytdl  YouTube影片下載器
 /pacman Arch-pacman工具
+/pkg Arch套件查詢資訊工具
+/cmd Arch指令尋找所屬套件
 /updateinfo 查看更新內容
 /version 顯示版本
 		'''
@@ -301,7 +310,7 @@ def handle(msg):		#程式精隨
 				sendM(chat_id,Ctext + ' BMI=' + str(bmi))
 			elif '--help' in text or '—help' in text:
 				sendM(chat_id,'''
-				用法： /calc [參數] [選項]
+				用法： /calc [選項] [參數]
 				選項：
 				--check 顯示是否過重或是過輕
 				--help 顯示幫助
@@ -326,7 +335,7 @@ def handle(msg):		#程式精隨
 				sendM(chat_id,str(result))
 		elif '--help' in text or '—help' in text:
 			text = '''
-			用法： /calc [參數] [選項]
+			用法： /calc [選項] [參數]
 			選項：
 			+ 數字x 數字y | 加
 			- 數字x 數字y | 減
@@ -417,6 +426,8 @@ def handle(msg):		#程式精隨
 	# 	sendM(chat_id,txt) #將執行結果和zsh樣式傳送
 	elif msg['text'] == '/YT下載' or msg['text'] == '/ytdl' or '/ytdl' in msg['text']:
 		text = str(msg['text']) #將訊息提取至text
+		
+		
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
 		text = text.split()
 		temp = ''
@@ -425,7 +436,7 @@ def handle(msg):		#程式精隨
 			temp += text[i] + ' '
 		if '--help' in msg['text'] or '—help' in msg['text']:
 			sendM(chat_id,'''
-			用法： /ytdl [參數] [選項] [...]
+			用法： /ytdl [選項] [參數] [...]
 			選項：
 			通用選項：
 			--version | 印出版本
@@ -461,6 +472,7 @@ def handle(msg):		#程式精隨
 			--help 顯示幫助
 			''')
 		else:
+			sendM('正在下載Youtube影片，請稍後...')
 			cmd = 'youtube-dl ' + temp + ' -o "yt/%(title)s.%(ext)s"' #將youtube-dl + 指令 + -o 標題.格式 輸出位置 為 yt/
 			result = os.popen(cmd) #將cmd命令執行
 			output = subprocess.getstatusoutput(cmd) #輸出cmd命令
@@ -486,6 +498,9 @@ def handle(msg):		#程式精隨
         2021/05/18 - v1.4.2 - 修復sendmsg不能以--help查看命令
 		2021/06/11 - v1.5 - 新增pacman指令
 		2021/06/11 - v1.5.1 - 修復pacman 顯示問題，修復pacman -Qi問題
+		2021/07/05 - v1.6 - 新增pkg顯示更多完整套件資訊命令，新增debugMode，可用於在console偵錯
+		2021/07/14 - v1.6.1 - 修復無法顯示量大pkg的bug
+		2021/07/17 - v1.6.2 - 新增cmd指令，用於查找該指令所屬之套件
         ''')
 	elif msg['text'] == '/更新內容' or msg['text'] == '/version' or '/version' in msg['text']:
 		sendM(chat_id,'目前版本：1.4.1')
@@ -513,8 +528,56 @@ def handle(msg):		#程式精隨
 			txt = temp
 			output = subprocess.getstatusoutput(temp) #執行結果
 			txt += output[1] #[0,輸出指令] 將0排除
-			sendM(chat_id,txt) #將執行結果和zsh樣式傳送
+			sendM(chat_id,txt)
+	elif msg['text'] == '/套件' or msg['text'] == '/pkg' or '/pkg' in msg['text']:
+		text = str(msg['text']) #將文字放進來 轉成字串
+		if '--help' in text or '—help' in text or '-h' in text:
+			sendM(chat_id,'''
+			用法： /pkg [參數]
+		說明：
+			此命令可查找Arch Repo的套件資訊，Repo有「core、community、extra、archlinuxcn、blackarch」
+			''')
+		else:
+			text = text.split() #將文字以空格切割
+			sendM('正在尋找該套件之資訊...請稍後...')
 
+			temp = 'pacman -Si ' #設定temp變數
+			for i in range(1,len(text[:])): #/command後面的字
+				temp += text[i] + ' ' #放進來
+			result = os.popen(temp) #將/command後面的指令執行
+			txt = temp
+			output = subprocess.getstatusoutput(temp) #執行結果
+			txt += output[1] #[0,輸出指令] 將0排除
+			sendM(chat_id,txt)
+	elif msg['text'] == '/指令' or msg['text'] == '/cmd' or '/cmd' in msg['text']:
+		text = str(msg['text']) #將文字放進來 轉成字串
+		if '--help' in text or '—help' in text or '-h' in text:
+			sendM(chat_id,'''
+			用法： /cmd [參數]
+		說明：
+			此命令可查找Arch 指令所屬套件，Repo有「core、community、extra、archlinuxcn、blackarch」
+			''')
+		else:
+			sendM('正在尋找該指令所屬的套件...請稍後...')
+			text = text.split() #將文字以空格切割
+			temp = 'pacman -F ' #設定temp變數
+			for i in range(1,len(text[:])): #/command後面的字
+				temp += text[i] + ' ' #放進來
+			result = os.popen(temp) #將/command後面的指令執行
+			txt = temp
+			output = subprocess.getstatusoutput(temp) #執行結果
+			txt += output[1] #[0,輸出指令] 將0排除
+			txt = txt.split('\n')
+			for i in range(0,len(txt)):
+				if '錯誤' in txt[i]:
+					txt[i] = ''
+			finaltxt = ''
+			for i in range(0,len(txt)):
+				#print(txt[i])
+				finaltxt = finaltxt + str(txt[i]) + '\n'
+			sendM(chat_id,finaltxt)
+	elif msg['text'] == '/debug' or '/debug' in msg['text']:
+		sendM(chat_id,'目前功能還沒開放，敬請期待！')
 print('''
  _____             _     _   __  __           _ 
 |_   _|__ _ __ ___| |__ (_) |  \/  | __ _  __| | ___ 
