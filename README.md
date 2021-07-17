@@ -26,7 +26,7 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
-### [更新日誌](/updateInfo.md)
+### 點這看更新日誌：[更新日誌](/updateInfo.md)
 
 ## Installation 安裝<br>
 ### **Quick install**
