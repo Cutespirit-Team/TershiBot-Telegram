@@ -19,10 +19,14 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 | /time | 時間 |
 | /ytdl | YouTube影片下載器 |
 | /pacman | Arch-Pacman工具 |
+| /pkg | Arch套件查詢資訊工具  |
+| /cmd | Arch指令尋找所屬套件  |
 | /updateInfo | 查看更新內容 |
 | /version | 顯示版本|
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
+
+[更新日誌](/updateInfo.md)
 
 ## Installation 安裝<br>
 ### **Quick install**
