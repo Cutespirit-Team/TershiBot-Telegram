@@ -1,24 +1,19 @@
 # Tershi Made
-import telepot	#匯入Telepot
-import time	#可以處理時間
-import random	#可以處理亂數
-from datetime import datetime	#一樣處理時間
+import os ,math ,subprocess ,time ,random ,telepot
 from telepot.loop import MessageLoop	#處理Telepot訊息
 from pprint import pprint	#這是print的加強版 可以讓文字自動排版
-from datetime import datetime #這是時間
-from datetime import timedelta 
-from datetime import date #時間
-import os
-import math #數學
-import subprocess
+from datetime import datetime, timedelta ,date #這是時間
+
 #夏特稀製作 可修改
 
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'TOKEN:TOKEN'
 bot = telepot.Bot(TOKEN)
-username = 'Username'
-hostname = 'Hostname'
+username = 'tershi'
+hostname = 'tershi-archlinux'
+nowVersion = '1.8'
+#####################################################debugMode = False #測試階段
 	#迷因照片總數
 jpg = 249
 png = 12
@@ -28,12 +23,14 @@ Toal = jpg + png# +gif
 	#ChatID
 TershiChatID = 695243750
 TershiUsername = '@TershiXia'
+LeaderChatID = 1015538995
 LeaderUsername = '@ads96532'
 HeaderUsermame = '@twattai'
-	#梗圖存放位置
-memeAddress = 'https:/example.com/meme/' #非必要
+	#存放位置
+memeAddress = 'https://cutespirit.tershi.cf/meme/' #非必要
 ytHttpdAddress = '/srv/http/' #依照你的Linux發行版而決定
-HttpdAddress = 'https://example.com/'
+HttpdAddress = 'https://cutespirit.tershi.cf/'
+
     #參數設定
 capCountDown111text = "2022/06/04 08:30 AM" #111會考日期文字
 capCountDown111 = datetime(2022,6,4,8,30)#111會考日期
@@ -46,6 +43,9 @@ ceecCountDown111 = datetime(2022,1,15,9,20) #111學測日期
 
 zhiCountDown111text = "2021/07/12 09:20 AM" #110指考日期文字
 zhiCountDown111 = datetime(2021,7,12,9,20) #110指考日期
+
+TershiBirthday18text = "2022/05/26" #夏特稀111生日文字
+TershiBirthday18 = datetime(2022,5,26,0,0) #夏特稀111生日
 
 Windows11text = "2021/06/24 11:07 PM" #Windows11文字
 Windows11 = datetime(2021,6,24,23,7) #Windows11
@@ -78,16 +78,13 @@ def getExamCountText():
 	text  = '中華帝國年行事曆\n\n'
 	text += '=====111年=====\n'
 	text += str(TershiBirthday18text) + '夏特稀皇帝18歲誕辰倒數' + str(getCount(TershiBirthday18)) + '\n'
-	text += str(Windows11text) + 'Windows 11 發布會' + str(getCount(Windows11)) + '\n'
 	text += str(capCountDown111text) + '會考倒數：' + str(getCount(capCountDown111)) + '\n'
 	text += str(tcteCountDown111text) + '學測倒數：' + str(getCount(tcteCountDown111)) + '\n'
 	text += str(ceecCountDown111text) + '統測倒數：' + str(getCount(ceecCountDown111)) + '\n'
-	text += str(zhiCountDown111text) + '指考倒數：' + str(getCount(zhiCountDown111)) + '\n'
 	text += '\n各位中華帝國的子民的，有什麼需要倒數的，或是日程，可以與 @TershiXia聯絡喔！\n'
-	text += '111會考生: @tljs2006a , @wujackkmp0728 , @ads96532 , @ttmins , @Shawn5_37 \n'
-	text += '111學測升: @ \n'
-	text += "111統測生: @TershiXia , @林小妤 \n"
-	return text
+	text += '111會考生: @拉拉拉拉 \n'
+	text += '111學測升: @拉拉拉拉 \n'
+	text += "111統測生: @拉拉拉拉 \n"
 
 def handle(msg):		#程式精隨
 	pprint(msg)		#印出全部msg
@@ -97,62 +94,48 @@ def handle(msg):		#程式精隨
 	if msg['text'] == '幫助' or msg['text'] == 'help' or '/help' in  msg['text']:	
 		#or兩方有一個為True就成立(邏輯運算子) 最後一個in的語法是 只要"/help"有在傳來的訊息裡面就True
 		text = '''
-用法： /指令 [選項...] [參數...]
-/help 顯示幫助
-/showmeme 顯示迷因梗圖
-/member 顯示群組人數
-/admim 顯示管理員
-/callme 呼叫夏特稀
-/sayhello 說哈摟
-/showweb 顯示官網
-/count 倒數計時
-/wearechina 我們是中國
-/sendmsg 次數 訊息 [選項] 傳送訊息 --help可以查看幫助
-/calc 數字x 數字y [選項] 計算機 --help可以查看幫助
-/time 時間
-/ytdl  YouTube影片下載器
-/pacman Arch-pacman工具
-/pkg Arch套件查詢資訊工具
-/cmd Arch指令尋找所屬套件
-/updateinfo 查看更新內容
-/version 顯示版本
+			用法： /指令 [選項...] [參數...]
+				一般：
+					/help 顯示幫助
+					/sendmsg 次數 訊息 [選項] | 傳送訊息 --help可以查看幫助
+					/calc 數字x 數字y [選項] | 計算機 --help可以查看幫助
+					/time [選項] | 顯示時間 --help可以查看幫助
+					/count | 倒數計時
+					/updateinfo | 查看更新內容
+					/version | 顯示版本
+					/about | 關於我們
+				群組功能：
+					/member | 顯示群組人數
+					/admim | 顯示管理員
+					/callme | 呼叫夏特稀
+				ArchLinux功能：
+					/pacman Arch-pacman工具
+					/pkg Arch套件查詢資訊工具
+					/cmd Arch指令尋找所屬套件
+				棄用：
+					/showmeme | 顯示迷因梗圖 注意！已經棄用
+					/ytdl | YouTube影片下載器 注意！已經棄用
 		'''
 		#三個單引號或雙引號可以多行當字串
 		sendM(chat_id , text) #調用傳送訊息的方法 將聊天室的(id傳出去,文字傳出去)
 
-	elif msg['text'] == 'meme' or msg['text'] == '梗圖' or '/showmeme' in msg['text'] :
-		tpnum = random.randint(0,TotalType-1)	#取是哪個種類
-		tp = ['png','jpg','gif']	#宣告種類
-		print('tpnum:' + str(tpnum))
-		if tp[tpnum] == 'png':		#如果是png
-			pcnum = random.randint(1,png)	#取哪張照片
-		elif tp[tpnum] == 'jpg':
-			pcnum = random.randint(1,jpg)
-		elif tp[tpnum] == 'gif':
-			pcnum = random.randint(1,gif)
-		photo = memeAddress + tp[tpnum] + '/'+ tp[tpnum] + str(pcnum) +'.' + tp[tpnum]	#網址
-		print(photo)	#將網址印出來
-		sendM(chat_id, '好好享受梗圖ㄅ～')
-		sendP(chat_id, photo)
+	# elif msg['text'] == 'meme' or msg['text'] == '梗圖' or '/showmeme' in msg['text'] :
+		# tpnum = random.randint(0,TotalType-1)	#取是哪個種類
+		# tp = ['png','jpg','gif']	#宣告種類
+		# print('tpnum:' + str(tpnum))
+		# if tp[tpnum] == 'png':		#如果是png
+		# 	pcnum = random.randint(1,png)	#取哪張照片
+		# elif tp[tpnum] == 'jpg':
+		# 	pcnum = random.randint(1,jpg)
+		# elif tp[tpnum] == 'gif':
+		# 	pcnum = random.randint(1,gif)
+		# photo = memeAddress + tp[tpnum] + '/'+ tp[tpnum] + str(pcnum) +'.' + tp[tpnum]	#網址
+		# print(photo)	#將網址印出來
+		# sendM(chat_id, '好好享受梗圖ㄅ～')
+		# sendP(chat_id, photo)
 	elif msg['text'] == '呼叫夏特稀' or '/callme' in msg['text']:
 		text = from_username  + '呼叫你'+ ',ChatID = ' + str(chat_id)
 		sendM(TershiChatID ,text)
-	elif msg['text'] == '哈摟' or msg['text'] == '哈囉' or  '/sayhello' in msg['text']:
-		sendM(chat_id, '哈摟,' + from_username)
-	elif msg['text'] == '顯示網站' or '/showweb' in msg['text']:
-		text = '''
-1. 靈萌官網 - https://cutespirit.tershi.cf
-2. 夏特稀雲端硬碟 - https://mail.tershi.cf/tershicloud
-3. 夏特稀郵件 - https://mail.tershi.cf
-4. 愛神閃靈團隊官網 - https://www.tershi.cf
-5. 夏特稀YT - https://www.youtube.com/夏特稀
-6. Bot Source Code: https://github.com/mmm25002500/TershiBot-Telegram
-夏特稀TG - t.me/TershiXia
-本Bot - t.me/@TershiCloudBot
-隱私權政策 - https://mail.tershi.cf/policy
-本Bot 是夏特稀製作
-			'''
-		sendM(chat_id,text)
 	elif msg['text'] == '人數' or '/member' in msg['text']:
 		sendM(chat_id ,'總共有:' + str(getChatNum(chat_id)) + '個人')
 		#上行需要str是因為那是整數 但傳出去要字串 所以必須將整數轉成字串
@@ -161,50 +144,24 @@ def handle(msg):		#程式精隨
 		#上行需要str是因為那是整數 但傳出去要字串 所以必須將整數轉成字串
 	elif msg['text'] == '/倒數' or msg['text'] == '/count' or '/count' in msg['text']:
 		sendM(chat_id,getExamCountText())
-	elif msg['text'] == '/我們是中國' or msg['text'] == '/wearechina' or '/wearechina' in msg['text']:
+	elif msg['text'] == '/我們是中國' or msg['text'] == '/weareroc' or '/weareroc' in msg['text']:
 		sendM(chat_id,'''中華民國萬歲，三民主義統一中國，我們是自由民主中國。''')
 	elif msg['text'] == '/傳送' or msg['text'] == '/sendmsg' or '/sendmsg' in msg['text']:
-		# text = str(msg['text'])
-		# text = text.split()
-		# countC = 0
-		# helpC = 0
-		# if text[1] == '--help':
-		# 		helpC = 1
-		# try:
-		# 	if text[3] == '--count':
-		# 		countC = 1
-		# except IndexError:
-		# 	print('Error')
-		# if helpC == 1:
-		# 	text = '''
-		# 		用法： /sendmsg 次數 訊息 [選項]
-		# 		選項：
-		# 		--count 計數器
-		# 		--help 顯示幫助
-		# 	'''
-		# 	sendM(chat_id,text)
-		# try:
-		# 	if countC ==1 and helpC ==0:
-		# 		for i in range(int(text[1])):
-		# 			sendM(chat_id,text[2]+ 'x' + str(i+1))
-		# 	elif helpC ==0:
-				
-		# 		for i in range(int(text[1])):
-		# 			sendM(chat_id,text[2])
-		# except IndexError:
-		# 	sendM(chat_id,'請輸入該有參數 /send 次數 訊息 [選項] 使用--help可以查看幫助')
-		#另外開始
 		text = str(msg['text']) #取得訊息 並放入text裡面
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #將有出現數字的 放入numbers裡面
 		text = text.split() #將text 依照空格切割
 		if numbers == []: #如果numbers為空
 			if '--help' in text or ' —help' in text: #如果--help在text串列裡面
 				sendM(chat_id,'''
-				用法： /sendmsg 次數 訊息 [選項]
-				選項：
-				--count 計數器
-				--sleep [秒] 間隔 0<=time<=10
-				--help 顯示幫助
+					用法： /sendmsg 次數 訊息 [選項]
+					變數：
+						次數: int
+						訊息: String
+						秒: int
+					選項：
+					--count | 計數器 用來顯示字串+x索引值
+					--sleep 秒 | 間隔秒數 每次執行間隔x秒 間隔 0<=x<=10
+					--help | 顯示幫助
 				''')
 			else:
 				sendM(chat_id,'請輸入該有參數 /sendmsg 次數 訊息 [選項] 使用--help可以查看幫助')
@@ -238,8 +195,7 @@ def handle(msg):		#程式精隨
 				for i in range(0,numbers[0]):
 					if tempS == 1:
 						time.sleep(numbers[-1])
-					sendM(chat_id,text[1])
-				
+					sendM(chat_id,text[1])				
 	elif msg['text'] == '/計算' or msg['text'] == '/calc' or '/calc' in msg['text']:
 		text = str(msg['text']) #將訊息提取至text
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
@@ -310,7 +266,7 @@ def handle(msg):		#程式精隨
 				sendM(chat_id,Ctext + ' BMI=' + str(bmi))
 			elif '--help' in text or '—help' in text:
 				sendM(chat_id,'''
-				用法： /calc [選項] [參數]
+				用法： /calc --bmi [選項]
 				選項：
 				--check 顯示是否過重或是過輕
 				--help 顯示幫助
@@ -413,21 +369,8 @@ def handle(msg):		#程式精隨
 		else: #如果只有/time
 			nowtime = '現在時間：' + today.strftime("%Y") + '年'+ today.strftime("%m") +'月' +today.strftime("%d") + '日' + today.strftime("%H") + '時' +today.strftime("%M") + '分' + today.strftime("%S") + '秒' 
 			sendM(chat_id,nowtime)
-	# elif msg['text'] == '/cmd' or '/cmd' in msg['text']:
-	# 	text = str(msg['text']) #將文字放進來 轉成字串
-	# 	text = text.split() #將文字以空格切割
-	# 	temp = '' #設定temp變數
-	# 	for i in range(1,len(text[:])): #/command後面的字
-	# 		temp += text[i] + ' ' #放進來
-	# 	result = os.popen(temp) #將/command後面的指令執行
-	# 	txt = '╭─' + username + '@'+ hostname + ' ~\n╰─➤' + temp + '\n' #zsh樣式 + 指令
-	# 	output = subprocess.getstatusoutput(temp) #執行結果
-	# 	txt += output[1] #[0,輸出指令] 將0排除
-	# 	sendM(chat_id,txt) #將執行結果和zsh樣式傳送
 	elif msg['text'] == '/YT下載' or msg['text'] == '/ytdl' or '/ytdl' in msg['text']:
 		text = str(msg['text']) #將訊息提取至text
-		
-		
 		numbers = [int(temp)for temp in text.split() if temp.isdigit()] #取得數字
 		text = text.split()
 		temp = ''
@@ -501,15 +444,20 @@ def handle(msg):		#程式精隨
 		2021/07/05 - v1.6 - 新增pkg顯示更多完整套件資訊命令，新增debugMode，可用於在console偵錯
 		2021/07/14 - v1.6.1 - 修復無法顯示量大pkg的bug
 		2021/07/17 - v1.6.2 - 新增cmd指令，用於查找該指令所屬之套件
+		2021/07/22 - v1.7 - 更改/wearechina至weareroc，新增/about，刪除/sayhello 說哈摟指令
+		2021/07/22 - v1.7.1 - 完善各--help幫助內容及help指令。
+		2021/07/22 - v1.8 - 刪除/showweb指令，棄用showmeme及ytdl指令，更改指令，版本大更新。
         ''')
-	elif msg['text'] == '/更新內容' or msg['text'] == '/version' or '/version' in msg['text']:
-		sendM(chat_id,'目前版本：1.4.1')
+	elif msg['text'] == '/更新版本' or msg['text'] == '/version' or '/version' in msg['text']:
+		sendM(chat_id,'目前版本：' + nowVersion)
 	elif msg['text'] == '/pacman'  or '/pacman' in msg['text']:
 		text = str(msg['text']) #將文字放進來 轉成字串
 		text = text.split() #將文字以空格切割
 		if '--help' in text or '—help' in text or '-h' in text:
 			sendM(chat_id,'''
-			pacman -h 用法:  pacman <操作> [...]
+		用法:  pacman <操作> 套件
+		變數：
+			套件: String
 		操作：
 			-h 幫助
 			-V 版本
@@ -517,8 +465,8 @@ def handle(msg):		#程式精隨
 			-Ss搜尋 [選項] [檔案]
 			-Q 佇列 [選項] [軟體包]
 			-Qi資訊	[選項] <檔案>
-
-使用 'pacman {-h --help}' 及某個操作以查看可用選項
+		說明：
+			此命令可執行某個pacman操作，使用 'pacman {-h --help}' 及某個操作以查看可用選項
 			''')
 		elif '-S' not in text or '--sync' not in text or '-Syy' not in text or '-Sy' not in text or '-U' not in text or '--upgrade' not in text or '--upgrade' not in text:
 			temp = 'pacman ' #設定temp變數
@@ -533,9 +481,11 @@ def handle(msg):		#程式精隨
 		text = str(msg['text']) #將文字放進來 轉成字串
 		if '--help' in text or '—help' in text or '-h' in text:
 			sendM(chat_id,'''
-			用法： /pkg [參數]
-		說明：
-			此命令可查找Arch Repo的套件資訊，Repo有「core、community、extra、archlinuxcn、blackarch」
+			用法： /pkg 套件
+			變數：		
+				套件: String
+			說明：
+				此命令可查找Arch Repo的套件資訊，Repo有「core、community、extra、archlinuxcn、blackarch」
 			''')
 		else:
 			text = text.split() #將文字以空格切割
@@ -553,9 +503,11 @@ def handle(msg):		#程式精隨
 		text = str(msg['text']) #將文字放進來 轉成字串
 		if '--help' in text or '—help' in text or '-h' in text:
 			sendM(chat_id,'''
-			用法： /cmd [參數]
-		說明：
-			此命令可查找Arch 指令所屬套件，Repo有「core、community、extra、archlinuxcn、blackarch」
+			用法： /cmd 套件
+			變數：
+				套件: String
+			說明：
+				此命令可查找Arch 指令所屬套件，Repo有「core、community、extra、archlinuxcn、blackarch」
 			''')
 		else:
 			sendM('正在尋找該指令所屬的套件...請稍後...')
@@ -576,23 +528,21 @@ def handle(msg):		#程式精隨
 				#print(txt[i])
 				finaltxt = finaltxt + str(txt[i]) + '\n'
 			sendM(chat_id,finaltxt)
-	elif msg['text'] == '/debug' or '/debug' in msg['text']:
-		sendM(chat_id,'目前功能還沒開放，敬請期待！')
+
 print('''
- _____             _     _   __  __           _ 
+_____             _     _   __  __           _ 
 |_   _|__ _ __ ___| |__ (_) |  \/  | __ _  __| | ___ 
-  | |/ _ \\ '__/ __| '_ \\| | | |\\/| |/ _` |/ _` |/ _ \\
-  | |  __/ |  \__ \ | | | | | |  | | (_| | (_| |  __/
-  |_|\___|_|  |___/_| |_|_| |_|  |_|\__,_|\__,_|\___|
- _____ ____         ____ _____             _     ___  ___       
+| |/ _ \\ '__/ __| '_ \\| | | |\\/| |/ _` |/ _` |/ _ \\
+| |  __/ |  \__ \ | | | | | |  | | (_| | (_| |  __/
+|_|\___|_|  |___/_| |_|_| |_|  |_|\__,_|\__,_|\___|
+_____ ____         ____ _____             _     ___  ___       
 |_   _/ ___|  _    / __ \_   _|__ _ __ ___| |__ (_) \/ (_) __ _ 
-  | || |  _  (_)  / / _` || |/ _ \ '__/ __| '_ \| |\  /| |/ _` |
-  | || |_| |  _  | | (_| || |  __/ |  \__ \ | | | |/  \| | (_| |
-  |_| \____| (_)  \ \__,_||_|\___|_|  |___/_| |_|_/_/\_\_|\__,_|
-                   \____/                                       	
-If there is errors or issues, you can pm @TershiXia or @ads96532.
-''')
-MessageLoop(bot, handle).run_as_thread()	#訊息做迴圈(哪個機器人 ,哪個方法).使用執行續()
+| || |  _  (_)  / / _` || |/ _ \ '__/ __| '_ \| |\  /| |/ _` |
+| || |_| |  _  | | (_| || |  __/ |  \__ \ | | | |/  \| | (_| |
+|_| \____| (_)  \ \__,_||_|\___|_|  |___/_| |_|_/_/\_\_|\__,_|
+				\____/                                       	
+If there is errors or issues, you can pm @TershiXia or @ads96532.''')
+MessageLoop(bot, handle).run_as_thread() #訊息做迴圈(哪個機器人 ,哪個方法).使用執行續()
 print("正在監聽本Bot流量!")
 
 while 1:	#永遠執行 1為True 0為False
