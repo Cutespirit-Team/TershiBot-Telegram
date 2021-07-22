@@ -5,7 +5,6 @@ from pprint import pprint	#這是print的加強版 可以讓文字自動排版
 from datetime import datetime, timedelta ,date #這是時間
 
 #夏特稀製作 可修改
-
 #設定檔:
 	#Bot的Token 沒有的要去 t.me/BotFather申請
 TOKEN = 'TOKEN:TOKEN'
