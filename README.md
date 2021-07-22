@@ -3,26 +3,38 @@ A telegram bot which made by Tershi. 一個由夏特稀製作的Telegram機器�
 這是一款使用Python寫的Telegram Bot，這是利用Telepot做成的，目前也正在維護中，也有在定時更新。<br>
 目前功能:<br>
 
-| 用法： /指令 | [選項...] [參數...] |
-|-----|-----|
-| /help | 顯示幫助 |
-| /showmeme | 顯示迷因梗圖 |
-| /member | 顯示群組人數 |
-| /admim | 顯示管理員 |
-| /callme | 呼叫夏特稀 |
-| /sayhello | 說哈摟 |
-| /showweb | 顯示官網 |
-| /count | 倒數計時 |
-| /wearechina | 我們是中國 |
-| /sendmsg | 次數 訊息 [選項] 傳送訊息 --help可以查看幫助 |
-| /calc | 數字x 數字y [選項] 計算機 --help可以查看幫助 |
-| /time | 時間 |
-| /ytdl | YouTube影片下載器 |
-| /pacman | Arch-Pacman工具 |
-| /pkg | Arch套件查詢資訊工具  |
-| /cmd | Arch指令尋找所屬套件  |
-| /updateInfo | 查看更新內容 |
-| /version | 顯示版本|
+### 一般：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|-----|
+| /help | 無 | 顯示幫助 |
+| /sendmsg | 次數 訊息 [選項] | 傳送訊息 --help可以查看幫助 |
+| /calc | 數字x 數字y [選項] | 計算機 --help可以查看幫助 |
+| /time | [選項] | 顯示時間 --help可以查看幫助 |
+| /count | 無 | 倒數計時 |
+| /weareroc | 無 | 我們是中國(中華民國) |
+| /updateinfo | 無 | 查看更新內容 |
+| /version | 無 | 顯示版本 |
+| /about | 無 | 關於我們 |
+
+### 群組功能：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|------|
+| /member | 無 | 顯示群組人數 |
+| /admim | 無 | 顯示管理員 |
+| /callme | 無 | 呼叫夏特稀 |
+
+### ArchLinux功能：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|-----
+| /pacman | <操作> 套件 | Arch-pacman工具 --help可以查看幫助 |
+| /pkg | 套件 | Arch套件查詢資訊工具 --help可以查看幫助 |
+| /cmd | 指令 | Arch指令尋找所屬套件 --help可以查看幫助 |
+
+### 棄用：
+| 用法/指令 | [選項...] [參數...] | 描述 |
+|-----|-----|-----
+| /showmeme | 無 | 顯示迷因梗圖 注意！已經棄用 |
+| /ytdl | [選項...] [參數...] | YouTube影片下載器 注意！已經棄用 |
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://travis-ci.org/badges/badgerbadgerbadger)
 
