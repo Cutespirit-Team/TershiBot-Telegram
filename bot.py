@@ -100,6 +100,7 @@ def handle(msg):		#程式精隨
 					/calc 數字x 數字y [選項] | 計算機 --help可以查看幫助
 					/time [選項] | 顯示時間 --help可以查看幫助
 					/count | 倒數計時
+					/weareroc | 我們是中國(中華民國)
 					/updateinfo | 查看更新內容
 					/version | 顯示版本
 					/about | 關於我們
